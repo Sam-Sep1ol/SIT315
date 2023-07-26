@@ -1,0 +1,28 @@
+#include <Arduino.h>
+const int sensorPin = A0;  // Sesnor connected to A0 
+const int actuatorPin = 13; // Actuator connected to 13
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(actuatorPin, OUTPUT);
+}
+
+void loop() {
+  // Read sensor data (Sense)
+  int sensorValue = analogRead(sensorPin); // Use analogRead for analog sensors
+  
+  // Update system status (Think)
+  if (sensorValue > 500) {
+    digitalWrite(actuatorPin, HIGH); // Actuator ON
+  } else {
+    digitalWrite(actuatorPin, LOW); // Actuator OFF
+  }
+  
+  // Print inputs and outputs to Serial Monitor (Act)
+  Serial.print("Sensor Reading: ");
+  Serial.print(sensorValue);
+  Serial.print("\tActuator Status: ");
+  Serial.println(digitalRead(actuatorPin) == HIGH ? "ON" : "OFF");
+  
+  delay(1000); // Add a small delay for stability and to avoid flooding the Serial Monitor
+}
